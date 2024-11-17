@@ -4,27 +4,40 @@ author: "Nexon Sobusa"
 date: "2024-11-17"
 output: pdf_document
 ---
+```{r}
+#install.packages("rvest")
+#install.packages("httr")
+#install.packages("polite")
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(rvest)
+library(httr)
+library(dplyr)
+
+library(polite)
+
+#install.packages("kableExtra")
+#library(kableExtra)
+#library(rmarkdown)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+setwd("D:/RStudio/RWorkhseet5/R-Analytics")
+polite::use_manners(save_as = 'polite_scrape.R')
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+url <- 'https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250&sort=rank%2Casc'
+session <- bow(url,user_agent = "Educational")
+session
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+rank_title <- character(0)
+links <- character(0)
+```
+
+```{r}
+title_list <- scrape(session) %>%
+  html_nodes('h3.ipc-title__text') %>% 
+  html_text()
+```
