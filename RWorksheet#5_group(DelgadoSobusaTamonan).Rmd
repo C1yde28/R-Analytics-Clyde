@@ -6,13 +6,25 @@ output:
   pdf_document:
     latex_engine: xelatex
 ---
+```{r}
+#install.packages("rvest")
+#install.packages("httr")
+#install.packages("polite")
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(rvest)
+library(httr)
+library(dplyr)
+
+library(polite)
+
+#install.packages("kableExtra")
+#library(kableExtra)
+#library(rmarkdown)
 ```
   
 
 ```{r}
+<<<<<<< HEAD
 library(polite)
 library(httr)
 library(rvest)
@@ -710,4 +722,25 @@ ranked_combined_product_data <- ranked_combined_product_data %>%
   slice(1:5) 
 
 print(ranked_combined_product_data)
+=======
+setwd("D:/RStudio/RWorkhseet5/R-Analytics")
+polite::use_manners(save_as = 'polite_scrape.R')
+```
+
+```{r}
+url <- 'https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250&sort=rank%2Casc'
+session <- bow(url,user_agent = "Educational")
+session
+```
+
+```{r}
+rank_title <- character(0)
+links <- character(0)
+```
+
+```{r}
+title_list <- scrape(session) %>%
+  html_nodes('h3.ipc-title__text') %>% 
+  html_text()
+>>>>>>> 20843b1f6ff3b25e37f888a8844d0ea48c3a92e1
 ```
